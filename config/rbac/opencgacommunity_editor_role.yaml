@@ -1,0 +1,24 @@
+# permissions for end users to edit opencgacommunities.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: opencgacommunity-editor-role
+rules:
+- apiGroups:
+  - opencga.zetta.com
+  resources:
+  - opencgacommunities
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - opencga.zetta.com
+  resources:
+  - opencgacommunities/status
+  verbs:
+  - get

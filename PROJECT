@@ -1,0 +1,16 @@
+domain: zetta.com
+layout:
+- go.kubebuilder.io/v3
+projectName: opencga-operator
+repo: github.com/phamidko/opencga-operator
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: zetta.com
+  group: opencga
+  kind: OpenCGACommunity
+  path: github.com/phamidko/opencga-operator/api/v1
+  version: v1
+version: "3"

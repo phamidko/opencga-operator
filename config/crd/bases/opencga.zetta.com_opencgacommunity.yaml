@@ -1,0 +1,102 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.8.0
+  creationTimestamp: null
+  name: opencgacommunity.opencga.zetta.com
+spec:
+  group: opencga.zetta.com
+  names:
+    kind: OpenCGACommunity
+    listKind: OpenCGACommunityList
+    plural: opencgacommunity
+    shortNames:
+    - ocbc
+    singular: opencgacommunity
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: Current REST URI of the OpenCGA REST deployment
+      jsonPath: .status.opencgarestUri
+      name: RestURI
+      type: string
+    - description: Current state of the OpenCGA REST deployment
+      jsonPath: .status.phase
+      name: Phase
+      type: string
+    - description: Version of OpenCGA REST server
+      jsonPath: .status.version
+      name: Version
+      type: string
+    name: v1
+    schema:
+      openAPIV3Schema:
+        description: OpenCGACommunity is the Schema for the opencgacommunities API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: OpenCGACommunitySpec defines the desired state of OpenCGACommunity
+            properties:
+              members:
+                description: Members is the number of members in the replica set
+                type: integer
+              type:
+                description: Type defines which type of OpenCGA REST deployment the
+                  resource should create
+                enum:
+                - ReplicaSet
+                type: string
+              version:
+                description: Version defines which version of OpenCGA will be used
+                type: string
+            required:
+            - members
+            - type
+            - version
+            type: object
+          status:
+            description: OpenCGACommunityStatus defines the observed state of OpenCGACommunity
+            properties:
+              currentOpenCGARESTMembers:
+                type: integer
+              currentStatefulSetReplicas:
+                type: integer
+              message:
+                type: string
+              opencgarestUri:
+                type: string
+              phase:
+                type: string
+              version:
+                type: string
+            required:
+            - currentOpenCGARESTMembers
+            - currentStatefulSetReplicas
+            - opencgarestUri
+            - phase
+            - version
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
